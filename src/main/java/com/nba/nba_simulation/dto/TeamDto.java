@@ -15,5 +15,5 @@ import lombok.Setter;
 public class TeamDto {
     private Long id;
     private String name;
-    // private List<PlayerTeam> players = new ArrayList<>();
+    private List<PlayerTeamDto> players = new ArrayList<>();
 }
