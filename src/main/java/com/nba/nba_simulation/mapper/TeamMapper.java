@@ -17,10 +17,10 @@ public class TeamMapper {
         TeamDto tdto = new TeamDto();
         tdto.setId(team.getId());
         tdto.setName(team.getName());
-        List<PlayerDto> playerDtos = team.getPlayers().stream()
-                        .map(pt -> PlayerMapper.mapToPlayerDto(pt.getPlayer()))
-                                .collect(Collectors.toList());
-        tdto.setPlayers(playerDtos);
+        List<Long> playerIds = team.getPlayers().stream()
+                .map(pt -> pt.getPlayer().getId())
+                .collect(Collectors.toList());
+        tdto.setPlayers(playerIds);
         return tdto;
 
     }
