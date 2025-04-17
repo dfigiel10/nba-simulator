@@ -6,48 +6,34 @@ import com.nba.nba_simulation.dto.TeamDto;
 import com.nba.nba_simulation.entity.Player;
 import com.nba.nba_simulation.entity.PlayerTeam;
 import com.nba.nba_simulation.entity.Team;
+import com.nba.nba_simulation.repository.PlayerRepository;
+import com.nba.nba_simulation.repository.TeamRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class PlayerTeamMapper {
+    @Autowired
+    private static PlayerRepository playerRepository;
+    @Autowired
+    private static TeamRepository teamRepository;
     public static PlayerTeam mapToPlayerTeam(PlayerTeamDto playerTeamDto) {
 
-        Player player = new Player();
-        player.setId(playerTeamDto.getPlayer().getId());
-        player.setFirstName(playerTeamDto.getPlayer().getFirstName());
-        player.setLastName(playerTeamDto.getPlayer().getLastName());
-        player.setHeight(playerTeamDto.getPlayer().getHeight());
-        player.setWeight(playerTeamDto.getPlayer().getWeight());
-
-        Team team = new Team();
-        team.setId(playerTeamDto.getTeam().getId());
-        team.setName(playerTeamDto.getTeam().getName());
-        // team.setPlayers(playerTeamDto.getTeam().getPlayers());
-
-        PlayerTeam playerTeam = new PlayerTeam();
-        // playerTeam.setId(playerTeam.getId());
-        playerTeam.setPlayer(player);
-        playerTeam.setTeam(team);
-
-        return playerTeam;
+        PlayerTeam pt = new PlayerTeam();
+        pt.setId(playerTeamDto.getId());
+        Player player = playerRepository.findById(playerTeamDto.getPlayer())
+                .orElseThrow(() -> new RuntimeException("Player not found"));
+        Team team = teamRepository.findById(playerTeamDto.getTeam())
+                .orElseThrow(() -> new RuntimeException("Team not found"));
+        pt.setTeam(team);
+        pt.setPlayer(player);
+        return pt;
     }
 
     public static PlayerTeamDto mapToPlayerTeamDto(PlayerTeam playerTeam) {
 
-        PlayerDto playerDto = new PlayerDto();
-        playerDto.setId(playerTeam.getPlayer().getId());
-        playerDto.setFirstName(playerTeam.getPlayer().getFirstName());
-        playerDto.setLastName(playerTeam.getPlayer().getLastName());
-        playerDto.setHeight(playerTeam.getPlayer().getHeight());
-        playerDto.setWeight(playerTeam.getPlayer().getWeight());
-
-        TeamDto teamDto = new TeamDto();
-        teamDto.setId(playerTeam.getTeam().getId());
-        // teamDto.setPlayers(playerTeam.getTeam().getPlayers());
-        teamDto.setName(playerTeam.getTeam().getName());
-
         PlayerTeamDto dto = new PlayerTeamDto();
         dto.setId(playerTeam.getId());
-        dto.setPlayer(playerDto);
-        dto.setTeam(teamDto);
+        dto.setPlayer(playerTeam.getPlayer().getId());
+        dto.setTeam(playerTeam.getTeam().getId());
         return dto;
     }
 }

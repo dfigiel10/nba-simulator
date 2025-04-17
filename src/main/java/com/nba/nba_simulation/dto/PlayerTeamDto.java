@@ -16,7 +16,7 @@ public class PlayerTeamDto {
 
     private Long id;
 
-    private PlayerDto player;
+    private Long player;
 
-    private TeamDto team;
+    private Long team;
 }
