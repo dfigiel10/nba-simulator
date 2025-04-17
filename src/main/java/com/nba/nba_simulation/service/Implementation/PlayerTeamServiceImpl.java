@@ -14,6 +14,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class PlayerTeamServiceImpl implements PlayerTeamService {
@@ -37,5 +40,14 @@ public class PlayerTeamServiceImpl implements PlayerTeamService {
 
         PlayerTeam savedPlayerTeam = playerTeamRepository.save(playerTeam);
         return PlayerTeamMapper.mapToPlayerTeamDto(savedPlayerTeam);
+    }
+
+    public List<PlayerTeamDto> getPlayerTeamHistory(Long playerId) {
+        List<PlayerTeam> playerTeams = playerTeamRepository.findByPlayerId(playerId);
+        List<PlayerTeamDto> playerTeamsDto = new ArrayList<>();
+        for (PlayerTeam pt : playerTeams) {
+            playerTeamsDto.add(PlayerTeamMapper.mapToPlayerTeamDto(pt));
+        }
+        return playerTeamsDto;
     }
 }
