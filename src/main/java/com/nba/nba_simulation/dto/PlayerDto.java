@@ -17,5 +17,5 @@ public class PlayerDto {
     private String lastName;
     private int height;
     private int weight;
-    // private List<PlayerTeamDto> teams = new ArrayList<>();
+    private List<Long> teamIds = new ArrayList<>();
 }
