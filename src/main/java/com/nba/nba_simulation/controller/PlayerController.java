@@ -26,4 +26,10 @@ public class PlayerController {
         return new ResponseEntity<>(savedPlayer, HttpStatus.CREATED);
     }
 
+    @GetMapping("/{playerId}")
+    public ResponseEntity<PlayerDto> getPlayer(@PathVariable Long playerId) {
+        PlayerDto player = playerService.getPlayer(playerId);
+        return new ResponseEntity<>(player, HttpStatus.OK);
+    }
+
 }

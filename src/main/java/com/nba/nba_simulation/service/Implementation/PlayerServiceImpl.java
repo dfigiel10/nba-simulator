@@ -28,4 +28,10 @@ public class PlayerServiceImpl implements PlayerService {
         Player savedPlayer = playerRepository.save(player);
         return PlayerMapper.mapToPlayerDto(savedPlayer);
     }
+
+    public PlayerDto getPlayer(Long playerId) {
+        Player player = playerRepository.findById(playerId)
+                .orElseThrow(() -> new RuntimeException("Player not found"));
+        return PlayerMapper.mapToPlayerDto(player);
+    }
 }

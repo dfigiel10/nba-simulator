@@ -4,4 +4,5 @@ import com.nba.nba_simulation.dto.PlayerDto;
 
 public interface PlayerService {
     PlayerDto createPlayer(PlayerDto playerDto);
+    PlayerDto getPlayer(Long playerId);
 }
