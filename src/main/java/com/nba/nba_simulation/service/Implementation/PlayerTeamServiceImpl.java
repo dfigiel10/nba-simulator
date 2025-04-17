@@ -32,6 +32,9 @@ public class PlayerTeamServiceImpl implements PlayerTeamService {
         playerTeam.setPlayer(player);
         playerTeam.setTeam(team);
 
+        player.getTeams().add(playerTeam);
+        team.getPlayers().add(playerTeam);
+
         PlayerTeam savedPlayerTeam = playerTeamRepository.save(playerTeam);
         return PlayerTeamMapper.mapToPlayerTeamDto(savedPlayerTeam);
     }
