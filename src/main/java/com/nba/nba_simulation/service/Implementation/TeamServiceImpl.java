@@ -21,4 +21,11 @@ public class TeamServiceImpl implements TeamService {
         Team savedTeam = teamRepository.save(team);
         return TeamMapper.mapToTeamDto(savedTeam);
     }
+
+    @Override
+    public TeamDto getTeam(Long teamId) {
+        Team team = teamRepository.findById(teamId)
+                .orElseThrow(() -> new RuntimeException("Team not found"));
+        return TeamMapper.mapToTeamDto(team);
+    }
 }

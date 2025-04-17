@@ -21,4 +21,10 @@ public class TeamController {
         TeamDto savedTeam = teamService.createTeam(teamDto);
         return new ResponseEntity<>(savedTeam, HttpStatus.CREATED);
     }
+
+    @GetMapping("/{teamId}")
+    public ResponseEntity<TeamDto> getTeam(@PathVariable Long teamId) {
+        TeamDto team = teamService.getTeam(teamId);
+        return new ResponseEntity<>(team, HttpStatus.OK);
+    }
 }

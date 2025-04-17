@@ -10,6 +10,7 @@ import java.util.*;
 public interface TeamService {
 
     TeamDto createTeam(TeamDto teamDto);
+    TeamDto getTeam(Long teamId);
 //    void addPlayer(Long teamId, Long playerId);
 //    Set<Player> getRoster(Long teamId);
 //    void draftPlayer(Long teamId, Long playerId);
