@@ -4,4 +4,5 @@ import com.nba.nba_simulation.dto.GameDto;
 
 public interface GameService {
     GameDto createGame(GameDto gameDto);
+    GameDto playGame(Long gameId);
 }
