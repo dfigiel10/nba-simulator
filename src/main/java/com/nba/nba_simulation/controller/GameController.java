@@ -23,4 +23,10 @@ public class GameController {
         GameDto savedGame = gameService.createGame(gameDto);
         return new ResponseEntity<>(savedGame, HttpStatus.CREATED);
     }
+
+    @PostMapping("/{gameId}/play")
+    public ResponseEntity<GameDto> playGame(@PathVariable Long gameId) {
+        GameDto playedGame = gameService.playGame(gameId);
+        return ResponseEntity.ok(playedGame);
+    }
 }
