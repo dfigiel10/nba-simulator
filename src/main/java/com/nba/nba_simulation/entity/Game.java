@@ -38,4 +38,7 @@ public class Game {
     @OneToMany(mappedBy="game", cascade = CascadeType.ALL) // One game has many game stats
     private List<GameTeamStats> gameTeamStats;
 
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    private List<GamePlayerStats> gamePlayerStats;
+
 }
