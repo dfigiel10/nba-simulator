@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @AllArgsConstructor
 @RestController
@@ -26,5 +28,10 @@ public class TeamController {
     public ResponseEntity<TeamDto> getTeam(@PathVariable Long teamId) {
         TeamDto team = teamService.getTeam(teamId);
         return new ResponseEntity<>(team, HttpStatus.OK);
+    }
+
+    @GetMapping("/teams")
+    public List<TeamDto> getAllTeams() {
+        return teamService.getAllTeams();
     }
 }

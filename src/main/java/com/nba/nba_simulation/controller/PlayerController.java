@@ -32,4 +32,9 @@ public class PlayerController {
         return new ResponseEntity<>(player, HttpStatus.OK);
     }
 
+    @GetMapping("/players/all")
+    public List<PlayerDto> getAllPlayers() {
+        return playerService.getAllPlayers();
+    }
+
 }

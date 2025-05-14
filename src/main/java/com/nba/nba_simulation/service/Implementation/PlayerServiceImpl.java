@@ -4,6 +4,7 @@ import com.nba.nba_simulation.dto.PlayerDto;
 import com.nba.nba_simulation.entity.Player;
 import com.nba.nba_simulation.entity.Team;
 import com.nba.nba_simulation.mapper.PlayerMapper;
+import com.nba.nba_simulation.mapper.TeamMapper;
 import com.nba.nba_simulation.repository.PlayerRepository;
 import com.nba.nba_simulation.repository.TeamRepository;
 import com.nba.nba_simulation.service.PlayerService;
@@ -33,5 +34,11 @@ public class PlayerServiceImpl implements PlayerService {
         Player player = playerRepository.findById(playerId)
                 .orElseThrow(() -> new RuntimeException("Player not found"));
         return PlayerMapper.mapToPlayerDto(player);
+    }
+
+    @Override
+    public List<PlayerDto> getAllPlayers() {
+        List<PlayerDto> players = playerRepository.findAll().stream().map(PlayerMapper::mapToPlayerDto).toList();
+        return players;
     }
 }

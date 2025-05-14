@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class TeamServiceImpl implements TeamService {
@@ -27,5 +30,10 @@ public class TeamServiceImpl implements TeamService {
         Team team = teamRepository.findById(teamId)
                 .orElseThrow(() -> new RuntimeException("Team not found"));
         return TeamMapper.mapToTeamDto(team);
+    }
+
+    @Override public List<TeamDto> getAllTeams() {
+        List<TeamDto> teams = teamRepository.findAll().stream().map(TeamMapper::mapToTeamDto).toList();
+        return teams;
     }
 }
