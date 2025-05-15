@@ -32,3 +32,4 @@ public class GamePlayerStatsController {
         return new ResponseEntity<>(playerStats, HttpStatus.OK);
     }
 }
+
