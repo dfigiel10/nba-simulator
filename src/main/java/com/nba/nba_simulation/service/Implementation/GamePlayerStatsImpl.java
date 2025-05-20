@@ -1,6 +1,9 @@
 package com.nba.nba_simulation.service.Implementation;
 
 import com.nba.nba_simulation.dto.GamePlayerStatsDto;
+import com.nba.nba_simulation.dto.LeadingAssistsDto;
+import com.nba.nba_simulation.dto.LeadingReboundsDto;
+import com.nba.nba_simulation.dto.LeadingScorerDto;
 import com.nba.nba_simulation.entity.GamePlayerStats;
 import com.nba.nba_simulation.mapper.GamePlayerStatsMapper;
 import com.nba.nba_simulation.repository.GamePlayerStatsRepository;
@@ -36,5 +39,20 @@ public class GamePlayerStatsImpl implements GamePlayerStatsService{
             playerStatsDto.add(GamePlayerStatsMapper.mapToGameTeamStatsDto(ps));
         }
         return playerStatsDto;
+    }
+
+    @Override
+    public List<LeadingScorerDto> topPointsPerGame() {
+        return gamePlayerStatsRepository.leadingPointsPerGame();
+    }
+
+    @Override
+    public List<LeadingAssistsDto> topAssistsPerGame() {
+        return gamePlayerStatsRepository.leadingAssistsPerGame();
+    }
+
+    @Override
+    public List<LeadingReboundsDto> topReboundsPerGame() {
+        return gamePlayerStatsRepository.leadingReboundsPerGame();
     }
 }

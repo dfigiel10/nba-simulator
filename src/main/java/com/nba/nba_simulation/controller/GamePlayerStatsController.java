@@ -1,6 +1,9 @@
 package com.nba.nba_simulation.controller;
 
 import com.nba.nba_simulation.dto.GamePlayerStatsDto;
+import com.nba.nba_simulation.dto.LeadingAssistsDto;
+import com.nba.nba_simulation.dto.LeadingReboundsDto;
+import com.nba.nba_simulation.dto.LeadingScorerDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +33,24 @@ public class GamePlayerStatsController {
     public ResponseEntity<List<GamePlayerStatsDto>> getPlayerStats(@PathVariable Long playerId) {
         List<GamePlayerStatsDto> playerStats = gamePlayerStatsService.getPlayerStats(playerId);
         return new ResponseEntity<>(playerStats, HttpStatus.OK);
+    }
+
+    @GetMapping("/player/leadingPPG")
+    public ResponseEntity<List<LeadingScorerDto>> getLeadingPPG() {
+        List<LeadingScorerDto> leadingPPG = gamePlayerStatsService.topPointsPerGame();
+        return new ResponseEntity<>(leadingPPG, HttpStatus.OK);
+    }
+
+    @GetMapping("/player/leadingAPG")
+    public ResponseEntity<List<LeadingAssistsDto>> getLeadingAPG() {
+        List<LeadingAssistsDto> leadingAPG = gamePlayerStatsService.topAssistsPerGame();
+        return new ResponseEntity<>(leadingAPG, HttpStatus.OK);
+    }
+
+    @GetMapping("/player/leadingRPG")
+    public ResponseEntity<List<LeadingReboundsDto>> getLeadingRPG() {
+        List<LeadingReboundsDto> leadingRPG = gamePlayerStatsService.topReboundsPerGame();
+        return new ResponseEntity<>(leadingRPG, HttpStatus.OK);
     }
 }
 
