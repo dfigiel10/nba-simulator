@@ -41,4 +41,8 @@ public class Game {
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private List<GamePlayerStats> gamePlayerStats;
 
+    @ManyToOne
+    @JoinColumn(name="schedule_id")
+    private Long schedule;
+
 }
