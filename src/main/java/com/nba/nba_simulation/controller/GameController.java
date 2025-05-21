@@ -29,4 +29,6 @@ public class GameController {
         GameDto playedGame = gameService.playGame(gameId);
         return ResponseEntity.ok(playedGame);
     }
+
+
 }

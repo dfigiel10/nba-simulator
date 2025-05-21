@@ -43,6 +43,6 @@ public class Game {
 
     @ManyToOne
     @JoinColumn(name="schedule_id")
-    private Long schedule;
+    private Schedule schedule;
 
 }

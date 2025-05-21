@@ -20,4 +20,5 @@ public class GameDto {
     private int awayScore;
     private Long winningTeam; // changed from TeamDto to Long (teamId)
     private List<GameTeamStatsDto> gameTeamStats;
+    private Long schedule;
 }

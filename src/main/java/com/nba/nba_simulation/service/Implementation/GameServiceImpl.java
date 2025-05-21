@@ -2,10 +2,12 @@ package com.nba.nba_simulation.service.Implementation;
 
 import com.nba.nba_simulation.dto.GameDto;
 import com.nba.nba_simulation.dto.GameTeamStatsDto;
+import com.nba.nba_simulation.dto.TeamDto;
 import com.nba.nba_simulation.entity.*;
 import com.nba.nba_simulation.mapper.GameMapper;
 import com.nba.nba_simulation.repository.GameRepository;
 import com.nba.nba_simulation.repository.PlayerRepository;
+import com.nba.nba_simulation.repository.ScheduleRepository;
 import com.nba.nba_simulation.repository.TeamRepository;
 import com.nba.nba_simulation.service.GameService;
 import lombok.AllArgsConstructor;
@@ -27,6 +29,23 @@ public class GameServiceImpl implements GameService {
     @Autowired
     private PlayerRepository playerRepository;
 
+    @Autowired
+    private ScheduleRepository scheduleRepository;
+
+    @Override
+    public Game createGame(GameDto gameDto, Schedule schedule){
+        Team homeTeam = teamRepository.findById(gameDto.getHomeTeam())
+                .orElseThrow(() -> new RuntimeException("Team not found"));
+        Team awayTeam = teamRepository.findById(gameDto.getAwayTeam())
+                .orElseThrow(() -> new RuntimeException("Team not found"));
+        Team winningTeam = null;
+
+        Map<Long, Team> teamMap = new HashMap<>();
+        teamMap.put(homeTeam.getId(), homeTeam);
+        teamMap.put(awayTeam.getId(), awayTeam);
+        return GameMapper.mapToGame(gameDto, homeTeam, awayTeam, winningTeam, teamMap, schedule);
+    }
+
     @Override
     public GameDto createGame(GameDto gameDto) { // only create the game, don't play it
         Team homeTeam = teamRepository.findById(gameDto.getHomeTeam())
@@ -34,6 +53,9 @@ public class GameServiceImpl implements GameService {
         Team awayTeam = teamRepository.findById(gameDto.getAwayTeam())
                 .orElseThrow(() -> new RuntimeException("Team not found"));
         Team winningTeam = null;
+
+        Schedule schedule = scheduleRepository.findById(gameDto.getSchedule())
+                .orElseThrow(() -> new RuntimeException("Schedule not found"));
 
         Set<Long> gameTeamStatIds = new HashSet<>();
         for (GameTeamStatsDto dto : gameDto.getGameTeamStats()) {
@@ -46,7 +68,7 @@ public class GameServiceImpl implements GameService {
             teamMap.put(team.getId(), team);
         }
 
-        Game game = GameMapper.mapToGame(gameDto, homeTeam, awayTeam, winningTeam, teamMap);
+        Game game = GameMapper.mapToGame(gameDto, homeTeam, awayTeam, winningTeam, teamMap, schedule);
         Game savedGame = gameRepository.save(game);
 //        Game game = new Game();
 //        game.setHomeTeam(homeTeam);

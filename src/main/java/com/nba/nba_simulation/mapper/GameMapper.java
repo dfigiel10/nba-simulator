@@ -4,6 +4,7 @@ import com.nba.nba_simulation.dto.GameDto;
 import com.nba.nba_simulation.dto.GameTeamStatsDto;
 import com.nba.nba_simulation.entity.Game;
 import com.nba.nba_simulation.entity.GameTeamStats;
+import com.nba.nba_simulation.entity.Schedule;
 import com.nba.nba_simulation.entity.Team;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Map;
 
 public class GameMapper {
 
-    public static Game mapToGame(GameDto gameDto, Team homeTeam, Team awayTeam, Team winningTeam, Map<Long, Team> teamMap) {
+    public static Game mapToGame(GameDto gameDto, Team homeTeam, Team awayTeam, Team winningTeam, Map<Long, Team> teamMap, Schedule schedule) {
         Game game = new Game();
         game.setId(gameDto.getId());
         game.setHomeTeam(homeTeam);
@@ -26,6 +27,7 @@ public class GameMapper {
             gameTeamStats.add(GameTeamStatsMapper.mapToGameTeamStats(gts, game, team));
         }
         game.setGameTeamStats(gameTeamStats);
+        game.setSchedule(schedule);
         return game;
     }
 
@@ -45,6 +47,7 @@ public class GameMapper {
             }
         }
         gdto.setGameTeamStats(statsDto);
+        gdto.setSchedule(game.getSchedule().getId());
 
         return gdto;
     }
