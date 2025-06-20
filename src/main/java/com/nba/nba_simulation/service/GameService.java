@@ -9,4 +9,5 @@ public interface GameService {
     GameDto createGame(GameDto gameDto);
     GameDto playGame(Long gameId);
     Game createGame(GameDto gameDto, Schedule schedule);
+    GameDto getGame(Long gameId);
 }

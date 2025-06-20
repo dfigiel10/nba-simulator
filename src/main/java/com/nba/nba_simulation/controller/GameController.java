@@ -30,5 +30,9 @@ public class GameController {
         return ResponseEntity.ok(playedGame);
     }
 
-
+    @GetMapping("/getGame/{gameId}")
+    public ResponseEntity<GameDto> getGame(@PathVariable Long gameId) {
+        GameDto game = gameService.getGame(gameId);
+        return ResponseEntity.ok(game);
+    }
 }

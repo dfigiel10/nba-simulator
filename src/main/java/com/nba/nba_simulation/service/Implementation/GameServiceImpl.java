@@ -33,6 +33,13 @@ public class GameServiceImpl implements GameService {
     private ScheduleRepository scheduleRepository;
 
     @Override
+    public GameDto getGame(Long gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new RuntimeException(("Game not found")));
+        return GameMapper.mapToGameDto(game);
+    }
+
+    @Override
     public Game createGame(GameDto gameDto, Schedule schedule){
         Team homeTeam = teamRepository.findById(gameDto.getHomeTeam())
                 .orElseThrow(() -> new RuntimeException("Team not found"));
